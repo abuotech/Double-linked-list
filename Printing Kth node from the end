@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int data;
+	struct node *pdr; //previous-address
+	struct node *ndr; //next-address
+};
+struct node *start=NULL,*ptr,*nnode=NULL,*ptr2,*ptr3; //nnode is new-node
+void main()                                           //start is starting address
+{
+	int x,n,k;
+	printf("Enter the data and if entering (-ve) integers it stop taking inputs(data) : \n");
+	scanf("%d",&x);
+	while(x>=0)
+	{
+		nnode=(struct node*)malloc(sizeof(struct node));
+		if(start==NULL)
+		{
+			nnode->data=x;
+			nnode->pdr=NULL;
+			nnode->ndr=NULL;
+			start=nnode;
+		}
+		else
+		{
+			ptr=start;
+			while(ptr->ndr)
+			{
+				ptr=ptr->ndr;
+			}
+			ptr->ndr=nnode;
+			nnode->data=x;
+			nnode->ndr=NULL;
+			nnode->pdr=ptr;
+		}
+		printf("Enter the data :\n");
+		scanf("%d",&x);
+	}
+	ptr2=start;
+	int c=0;
+	printf("The elements are : \n");
+	if(ptr2==NULL)
+	{
+		printf("Empty\n");
+	}
+	else
+	{
+		while(ptr2)
+		{	c++;
+			printf("%d",ptr2->data);
+			ptr2=ptr2->ndr;
+			printf("\n");
+		}
+		printf("\n");
+	}
+	printf("Enter the kth node from the above nodes:\n");
+	scanf("%d",&k);
+	ptr3=start;
+	while((ptr3)&&(c>0))
+	{
+		if(c==k)
+			printf("Data for kth node is %d\n\n",ptr3->data);
+		ptr3=ptr3->ndr;
+		c--;
+	}
+	}
